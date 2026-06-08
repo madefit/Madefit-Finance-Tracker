@@ -12,7 +12,8 @@ export async function GET(request: Request) {
   }
   const { data: reports } = await supabase.from("daily_reports").select("*, employees(full_name)").order("report_date", { ascending: false });
 
-  const rows = (reports || []).map((report: Record<string, unknown>) => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rows = (reports || []).map((report: any) => ({
     Date: report.report_date,
     Sales: report.total_sales,
     "Daily Expenses": report.total_daily_expenses,

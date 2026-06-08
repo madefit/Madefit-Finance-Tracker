@@ -22,7 +22,8 @@ export function SettingsPanel({ employees, notifications }: { employees: Employe
     if (!res.ok) {
       alert("Error: " + (json.message || "Unknown error"));
     } else {
-      const messages = json.results?.map((r: Record<string, unknown>) => `${r.recipient}: ${r.ok ? 'Success' : 'Failed - ' + String(r.message)}`).join("\n");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const messages = json.results?.map((r: any) => `${r.recipient}: ${r.ok ? 'Success' : 'Failed - ' + String(r.message)}`).join("\n");
       alert("Test results:\n\n" + (messages || "No active recipients found."));
     }
   }
