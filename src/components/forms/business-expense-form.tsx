@@ -55,7 +55,7 @@ export function BusinessExpenseForm({ expenses, reports, allTimeStats }: { expen
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="shadow-sm border-slate-200">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100">
-            <CardTitle className="text-lg text-slate-800">Today's Insights</CardTitle>
+            <CardTitle className="text-lg text-slate-800">Today&apos;s Insights</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 sm:grid-cols-3 pt-6">
             <div className="rounded-lg border border-slate-200 p-4">

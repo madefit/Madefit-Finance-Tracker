@@ -36,11 +36,17 @@ export function EmployeeClosingForm({
       const saved = localStorage.getItem(`draft_closing_${todayISO()}`);
       if (saved) {
         const parsed = JSON.parse(saved);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.expenses) setExpenses(parsed.expenses);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.sales) setSales(parsed.sales);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.gpayTransactions) setGpayTransactions(parsed.gpayTransactions);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.ownerCash) setOwnerCash(parsed.ownerCash);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.staffCash) setStaffCash(parsed.staffCash);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parsed.actualCash) setActualCash(parsed.actualCash);
       }
     } catch (e) {
@@ -133,7 +139,7 @@ export function EmployeeClosingForm({
         <Card className="shadow-sm border-slate-200">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between py-4">
             <CardTitle className="text-lg text-slate-800">Daily Expenses</CardTitle>
-            <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 font-semibold">{inr(totalExpenses)}</Badge>
+            <Badge tone="green" className="bg-emerald-100 text-emerald-800 font-semibold">{inr(totalExpenses)}</Badge>
           </CardHeader>
           <CardContent className="space-y-3 pt-6">
             {expenses.map((line, index) => (
@@ -195,7 +201,7 @@ export function EmployeeClosingForm({
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm" onClick={() => setExpenses([...expenses, { id: crypto.randomUUID(), category: "Tea & Refreshments", description: "", amount: 0 }])} className="w-full border-slate-200 text-slate-600 hover:bg-slate-50 mt-2">
+            <Button variant="secondary" size="sm" onClick={() => setExpenses([...expenses, { id: crypto.randomUUID(), category: "Tea & Refreshments", description: "", amount: 0 }])} className="w-full border-slate-200 text-slate-600 hover:bg-slate-50 mt-2">
               <Plus className="mr-2 h-4 w-4" /> Add Expense
             </Button>
           </CardContent>
@@ -204,7 +210,7 @@ export function EmployeeClosingForm({
         <Card className="shadow-sm border-slate-200">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between py-4">
             <CardTitle className="text-lg text-slate-800">GPay Collections</CardTitle>
-            <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 font-semibold">{inr(totalGpay)}</Badge>
+            <Badge tone="green" className="bg-emerald-100 text-emerald-800 font-semibold">{inr(totalGpay)}</Badge>
           </CardHeader>
           <CardContent className="space-y-4 pt-6">
             <div className="space-y-3">
@@ -217,7 +223,7 @@ export function EmployeeClosingForm({
                   </Button>
                 </div>
               ))}
-              <Button variant="outline" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50" onClick={() => setGpayTransactions((items) => [...items, { id: crypto.randomUUID(), customer_name: "", amount: 0 }])}>
+              <Button variant="secondary" className="w-full border-slate-200 text-slate-600 hover:bg-slate-50" onClick={() => setGpayTransactions((items) => [...items, { id: crypto.randomUUID(), customer_name: "", amount: 0 }])}>
                 <Plus className="mr-2 h-4 w-4" />
                 Add GPay Transaction
               </Button>
@@ -256,11 +262,11 @@ export function EmployeeClosingForm({
               <Label className="text-slate-600 font-semibold">Status</Label>
               <div className="mt-1.5">
                 {difference === 0 ? (
-                  <Badge variant="secondary" className="flex w-full items-center justify-center gap-1 bg-emerald-100 text-emerald-800 py-1.5">
+                  <Badge tone="green" className="flex w-full items-center justify-center gap-1 bg-emerald-100 text-emerald-800 py-1.5">
                     <CheckCircle2 className="h-4 w-4" /> Balanced
                   </Badge>
                 ) : (
-                  <Badge variant="destructive" className="flex w-full items-center justify-center gap-1 py-1.5 bg-red-100 text-red-800 border-red-200">
+                  <Badge tone="rose" className="flex w-full items-center justify-center gap-1 py-1.5 bg-red-100 text-red-800 border-red-200">
                     <CircleAlert className="h-4 w-4" /> {difference > 0 ? "Excess " : "Short "} {inr(Math.abs(difference))}
                   </Badge>
                 )}
@@ -284,7 +290,7 @@ export function EmployeeClosingForm({
         <Card className="shadow-sm border-slate-200">
           <CardHeader className="bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between py-4">
             <CardTitle className="text-lg text-slate-800">Cash Allocation</CardTitle>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800 font-semibold">{inr(calculated.availableCash)} Available</Badge>
+            <Badge tone="blue" className="bg-blue-100 text-blue-800 font-semibold">{inr(calculated.availableCash)} Available</Badge>
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
             <div className="grid gap-4 sm:grid-cols-2 pt-2">

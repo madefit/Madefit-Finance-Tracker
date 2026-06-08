@@ -108,8 +108,8 @@ export async function getDashboardData(): Promise<DashboardData> {
     businessExpenses: (businessExpenseResult.data ?? []) as BusinessExpense[],
     notifications: (notificationResult.data ?? []) as NotificationRecipient[],
     allTimeStats: {
-      totalSales: (allSalesResult.data ?? []).reduce((sum: number, r: any) => sum + Number(r.total_sales || 0), 0),
-      totalBusinessExpenses: (allBizExpensesResult.data ?? []).reduce((sum: number, r: any) => sum + Number(r.amount || 0), 0),
+      totalSales: (allSalesResult.data ?? []).reduce((sum: number, r: Record<string, unknown>) => sum + Number(r.total_sales || 0), 0),
+      totalBusinessExpenses: (allBizExpensesResult.data ?? []).reduce((sum: number, r: Record<string, unknown>) => sum + Number(r.amount || 0), 0),
     },
   };
 }

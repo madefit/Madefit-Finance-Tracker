@@ -22,7 +22,7 @@ export function SettingsPanel({ employees, notifications }: { employees: Employe
     if (!res.ok) {
       alert("Error: " + (json.message || "Unknown error"));
     } else {
-      const messages = json.results?.map((r: any) => `${r.recipient}: ${r.ok ? 'Success' : 'Failed - ' + r.message}`).join("\n");
+      const messages = json.results?.map((r: Record<string, unknown>) => `${r.recipient}: ${r.ok ? 'Success' : 'Failed - ' + String(r.message)}`).join("\n");
       alert("Test results:\n\n" + (messages || "No active recipients found."));
     }
   }
@@ -79,7 +79,7 @@ export function SettingsPanel({ employees, notifications }: { employees: Employe
             <UserCog className="h-5 w-5 text-emerald-600" />
             Employees
           </CardTitle>
-          <Button variant="outline" size="sm" onClick={toggleAdd} className="bg-white border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50">
+          <Button variant="secondary" size="sm" onClick={toggleAdd} className="bg-white border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50">
             {isAddingEmployee ? <X className="mr-2 h-4 w-4" /> : <Plus className="mr-2 h-4 w-4" />}
             {isAddingEmployee ? "Cancel" : "Add Employee"}
           </Button>
@@ -207,7 +207,7 @@ export function SettingsPanel({ employees, notifications }: { employees: Employe
             ))}
           </div>
 
-          <Button variant="outline" className="w-full border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 font-semibold" onClick={testNotification}>
+          <Button variant="secondary" className="w-full border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 font-semibold" onClick={testNotification}>
             <ShieldCheck className="mr-2 h-4 w-4" />
             Send Test Notification
           </Button>

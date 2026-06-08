@@ -65,7 +65,7 @@ export function DashboardShell({ initialData }: { initialData: DashboardData }) 
           <div className="flex shrink-0 items-center gap-2">
             <Badge tone={isAdmin ? "blue" : "green"} className="hidden sm:inline-flex">{data.employee?.role ?? "demo"}</Badge>
             <Button 
-              variant="outline" 
+              variant="secondary" 
               size="icon" 
               className="rounded-full bg-white shadow-sm hover:bg-slate-50"
               aria-label="Log out"

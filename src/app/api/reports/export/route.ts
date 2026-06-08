@@ -7,9 +7,12 @@ export async function GET(request: Request) {
   const type = url.searchParams.get("type") ?? "summary";
   
   const supabase = await createSupabaseServerClient();
+  if (!supabase) {
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
   const { data: reports } = await supabase.from("daily_reports").select("*, employees(full_name)").order("report_date", { ascending: false });
 
-  const rows = (reports || []).map((report: any) => ({
+  const rows = (reports || []).map((report: Record<string, unknown>) => ({
     Date: report.report_date,
     Sales: report.total_sales,
     "Daily Expenses": report.total_daily_expenses,

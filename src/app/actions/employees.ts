@@ -93,7 +93,7 @@ export async function updateEmployee(formData: FormData) {
     return { error: "Employee not found." };
   }
 
-  const authUpdates: any = { email: data.email };
+  const authUpdates: Record<string, unknown> = { email: data.email };
   if (data.password && data.password.length >= 6) {
     authUpdates.password = data.password;
   }
