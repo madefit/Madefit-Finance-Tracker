@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 import { strToU8, zipSync } from "fflate";
-import { sampleReports } from "@/lib/sample-data";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const type = url.searchParams.get("type") ?? "summary";
-  const rows = sampleReports.map((report) => ({
+  
+  const supabase = await createSupabaseServerClient();
+  const { data: reports } = await supabase.from("daily_reports").select("*, employees(full_name)").order("report_date", { ascending: false });
+
+  const rows = (reports || []).map((report: any) => ({
     Date: report.report_date,
     Sales: report.total_sales,
     "Daily Expenses": report.total_daily_expenses,
     "Bank Deposits": report.total_bank_deposits,
     "Cash In Shop": report.cash_in_shop,
-    "Submitted By": report.submitted_by_name ?? "",
+    "Submitted By": report.employees?.full_name ?? "",
   }));
 
   const workbook = buildWorkbook(rows);
